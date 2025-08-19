@@ -7,12 +7,12 @@ export default async function Page() {
     const classes = await prisma.class.findMany();
     const subject = await prisma.subject.findMany();
     
-    return(
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+    return (
+      <div className="w-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
         <h1 className="text-3xl font-bold text-indigo-700 mb-8">
           Dashboard Overview
         </h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <DashboardCard
             title="All Students"
             count={student.length}
@@ -37,8 +37,8 @@ export default async function Page() {
           <DashboardCard
             title="All Subject"
             count={subject.length}
-            icon={<BookOpen className="h-10 w-10 text-purple-500" />}
-            color="bg-purple-100"
+            icon={<BookOpen className="h-10 w-10 text-orange-500" />}
+            color="bg-yellow-100"
             names={subject.map((s) => s.name)}
           />
         </div>

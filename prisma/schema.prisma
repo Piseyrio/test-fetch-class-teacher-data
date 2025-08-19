@@ -22,17 +22,29 @@ model Class {
   updatedAt DateTime  @updatedAt
   students  Student[]
   teachers  Teacher[] @relation("TeacherClasses")
+  subject   Subject[] @relation("SubjectClasses")
+}
+
+model Subject {
+  id        Int       @id @default(autoincrement())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  classes   Class[]   @relation("SubjectClasses")
+  teachers  Teacher[] @relation("TeacherSubjects")
+  Students  Student[]
 }
 
 model Teacher {
-  id        Int       @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   firstname String
   lastname  String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   classes  Class[]   @relation("TeacherClasses")
   students Student[] @relation("TeacherStudents")
+  subjects Subject[] @relation("TeacherSubjects")
 }
 
 model Student {
@@ -44,6 +56,9 @@ model Student {
 
   class   Class? @relation(fields: [classId], references: [id])
   classId Int?
+
+  subject   Subject? @relation(fields: [subjectId], references: [id])
+  subjectId Int?
 
   teacher   Teacher? @relation("TeacherStudents", fields: [teacherId], references: [id])
   teacherId Int?

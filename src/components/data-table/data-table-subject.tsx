@@ -51,16 +51,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { StudentForm } from "../form/studentform";
+import { SubjectForm } from "../form/subjectform";
 
-type Option = { id: number; name: string };
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function DataTableStudents<TData, TValue>({
+export function DataTableSubject<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -70,23 +69,6 @@ export function DataTableStudents<TData, TValue>({
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
-
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState<{
-    classes: Option[];
-    teachers: Option[];
-    subjects: Option[];
-  } | null>(null);
-  const [loading, setLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    if (!open || options) return;
-    setLoading(true);
-    fetch("/api/classes-teachers")
-      .then((r) => r.json())
-      .then(setOptions)
-      .finally(() => setLoading(false));
-  }, [open, options]);
 
   const table = useReactTable({
     data,
@@ -121,26 +103,18 @@ export function DataTableStudents<TData, TValue>({
         />
 
         {/*Add Student From*/}
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog>
           <DialogTrigger asChild>
-            <Button>Add Student</Button>
+            <Button variant="outline">Add New Subject</Button>
           </DialogTrigger>
           <DialogContent className="md:max-w-[925px]">
             <DialogHeader>
-              <DialogTitle>Add New Student new haha</DialogTitle>
+              <DialogTitle>Subject Form</DialogTitle>
+              <DialogDescription>
+                Add subject information here.....
+              </DialogDescription>
             </DialogHeader>
-            {loading && (
-              <div className="text-sm text-muted-foreground">
-                Loading …
-              </div>
-            )}
-            {options && (
-              <StudentForm
-                classes={options.classes}
-                teachers={options.teachers}
-                subjects={options.subjects}
-              />
-            )}
+            <SubjectForm   />
           </DialogContent>
         </Dialog>
         {/*Select Columns*/}

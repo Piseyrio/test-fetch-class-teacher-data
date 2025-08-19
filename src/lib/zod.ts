@@ -5,8 +5,9 @@ import { z } from "zod";
 export const studentSchema = z.object({
   firstname: z.string().min(1, "First name is required"),
   lastname: z.string().min(1, "Last name is required"),
-  classId: z.coerce.number().int().positive().optional(),   // comes from <select>
-  teacherId: z.coerce.number().int().positive().optional(), // comes from <select>
+  classId: z.coerce.number().int().positive().optional(), // comes from <select>
+  teacherId: z.coerce.number().int().positive().optional(),
+  subjectId: z.coerce.number().int().positive().optional(), // comes from <select>
 });
 
 export type StudentSchema = z.infer<typeof studentSchema>;
@@ -28,3 +29,9 @@ export const classSchema = z.object({
   teacherId: z.coerce.number().int().positive().optional(),
 });
 export type ClassSchema = z.infer<typeof classSchema>;
+
+export const subjectSchema = z.object({
+    name: z.string().min(1, "Subject name is required"),
+  teacherId: z.coerce.number().int().positive().optional(),
+});
+export type SubjectSchema = z.infer<typeof subjectSchema>;

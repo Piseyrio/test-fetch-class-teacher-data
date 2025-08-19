@@ -32,6 +32,14 @@ export default function NavSidebar() {
             Teachers
           </a>
         </li>
+        <li>
+          <a href="/dashboard/subject"
+          
+           className="hover:bg-gray-700 rounded px-3 py-2 block"
+           >
+            Subjects
+           </a>
+        </li>
       </ul>
     </nav>
   );

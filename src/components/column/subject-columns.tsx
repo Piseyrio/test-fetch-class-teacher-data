@@ -11,8 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import Link from "next/link";
-import { Student } from "@/generated/prisma/client";
+import { Subject} from "@/generated/prisma/client";
 
 function fmtDate(d: Date | string | null) {
   if (!d) return "—";
@@ -27,66 +26,20 @@ function titleCase(s: string | null | undefined){
 }
 
 // For fetch Data form prisma check database name , for FakeData check FakeData.ts at lib
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<Subject>[] = [
+
   {
     accessorKey: "id",
     header: "ID",
     meta: { className: "hidden md:table-cell" },
   },
-  {
-    id: "firstname",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Name
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
-    accessorFn: (row) => `${row.firstname} ${row.lastname}`, // needed for sorting
-    filterFn: (row, columnId, filterValue) => {
-      const fullName = row.getValue(columnId) as string;
-      return fullName.toLowerCase().includes(filterValue.toLowerCase());
-    },
-    cell: ({ row }) => {
-      const firstname = row.original.firstname;
-      const lastname = row.original.lastname;
-      return (
-        <Link href={`/dashboard/list/students/${row.original.id}`}>
-          <div className="flex flex-col leading-tight">
-            <span className="font-medium">{firstname}</span>
-            <span className="text-gray-500 text-sm">{lastname}</span>
-          </div>
-        </Link>
-      );
-    },
-  },
-  {
-    id: "teacher",
-    header: "Teacher",
-    accessorFn: (row) =>
-      row.teacher
-        ? `${row.teacher.firstname} ${row.teacher.lastname}`.trim()
-        : "—",
-    cell: ({ row }) => {
-      const t = row.original.teacher;
-      return t ? `${t.firstname} ${t.lastname}` : "—";
-    },
-  },
-  {
-    id: "class",
-    header: "Class",
-    accessorFn: (row) => row.class?.name ?? "—",
-    cell: ({ row }) => row.original.class?.name ?? "—",
-  },
-  {
-    id: "subject",
-    header: "Subject",
-    accessorFn: (row) => row.subject?.name ?? "—",
-    cell: ({ row }) => row.original.subject?.name ?? "—",
-  },
-  {
+{
+  accessorKey: "name",
+  header: "Name",
+  
+ },
+
+{
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {

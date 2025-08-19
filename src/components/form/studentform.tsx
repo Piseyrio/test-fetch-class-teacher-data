@@ -13,9 +13,11 @@ type Option = { id: number; name: string };
 export function StudentForm({
   classes,
   teachers,
+  subjects,
 }: {
   classes: Option[];
   teachers: Option[];
+  subjects: Option[];
 }) {
   const [isPending, startTransition] = useTransition();
 
@@ -40,43 +42,81 @@ export function StudentForm({
 
   
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid grid-cols-1 md:grid-cols-2 gap-4"
+    >
       <div>
         <label className="block mb-1">First name</label>
-        <input {...register("firstname")} className="w-full border rounded p-2" />
-        {errors.firstname && <span className="text-red-500">{errors.firstname.message}</span>}
+        <input
+          {...register("firstname")}
+          className="w-full border rounded p-2"
+        />
+        {errors.firstname && (
+          <span className="text-red-500">{errors.firstname.message}</span>
+        )}
       </div>
 
       <div>
         <label className="block mb-1">Last name</label>
-        <input {...register("lastname")} className="w-full border rounded p-2" />
-        {errors.lastname && <span className="text-red-500">{errors.lastname.message}</span>}
+        <input
+          {...register("lastname")}
+          className="w-full border rounded p-2"
+        />
+        {errors.lastname && (
+          <span className="text-red-500">{errors.lastname.message}</span>
+        )}
       </div>
-
-      
 
       <div>
         <label className="block mb-1">Class</label>
         <select {...register("classId")} className="w-full border rounded p-2">
-          <option value="">— No class —</option>
-          {classes.map(c => (
-            <option key={c.id} value={c.id}>{c.name}</option>
+          <option value="">Select class</option>
+          {classes.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
           ))}
         </select>
-        {errors.classId && <span className="text-red-500">{errors.classId.message}</span>}
+        {errors.classId && (
+          <span className="text-red-500">{errors.classId.message}</span>
+        )}
       </div>
 
       <div>
         <label className="block mb-1">Teacher</label>
-        <select {...register("teacherId")} className="w-full border rounded p-2">
-          <option value="">— No teacher —</option>
-          {teachers.map(t => (
-            <option key={t.id} value={t.id}>{t.name}</option>
+        <select
+          {...register("teacherId")}
+          className="w-full border rounded p-2"
+        >
+          <option value="">select teacher</option>
+          {teachers.map((t) => (
+            <option key={t.id} value={t.id}>
+              {t.name}
+            </option>
           ))}
         </select>
-        {errors.teacherId && <span className="text-red-500">{errors.teacherId.message}</span>}
+        {errors.teacherId && (
+          <span className="text-red-500">{errors.teacherId.message}</span>
+        )}
       </div>
-
+      <div>
+        <label className="block mb-1">Subject</label>
+        <select
+          {...register("subjectId")}
+          className="w-full border rounded p-2"
+        >
+          <option value="">Select subject</option>
+          {subjects.map((s) => (
+            <option key={s.id} value={s.id}>
+              {s.name}
+            </option>
+          ))}
+        </select>
+        {errors.subjectId && (
+          <span className="text-red-500">{errors.subjectId.message}</span>
+        )}
+      </div>
       <div className="md:col-span-2 pt-2">
         <button
           type="submit"

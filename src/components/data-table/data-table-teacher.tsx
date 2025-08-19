@@ -107,7 +107,7 @@ export function DataTableTeacher<TData, TValue>({
         {/*Add Student From*/}
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="outline">Add New Class</Button>
+            <Button variant="outline">Add New Teacher</Button>
           </DialogTrigger>
           <DialogContent className="md:max-w-[925px]">
             <DialogHeader>

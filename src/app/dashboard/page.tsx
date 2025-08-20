@@ -1,4 +1,4 @@
-import { User, Users, BookOpen } from 'lucide-react';
+import { User, Users, BookOpen, BookMarked } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 
 export default async function Page() {
@@ -37,7 +37,7 @@ export default async function Page() {
           <DashboardCard
             title="All Subject"
             count={subject.length}
-            icon={<BookOpen className="h-10 w-10 text-orange-500" />}
+            icon={<BookMarked className="h-10 w-10 text-orange-500" />}
             color="bg-yellow-100"
             names={subject.map((s) => s.name)}
           />

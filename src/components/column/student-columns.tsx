@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import Link from "next/link";
-import { Student } from "@/generated/prisma/client";
+import { Prisma, Student } from "@/generated/prisma/client";
 
 function fmtDate(d: Date | string | null) {
   if (!d) return "—";
@@ -25,6 +25,7 @@ function titleCase(s: string | null | undefined){
   if (!s) return "-";
   return s.charAt(0) + s.slice(1).toLowerCase();
 }
+
 
 // For fetch Data form prisma check database name , for FakeData check FakeData.ts at lib
 export const columns: ColumnDef<Student>[] = [
@@ -100,18 +101,22 @@ export const columns: ColumnDef<Student>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel className="text-red-500">
-              Actions
-            </DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(String(payment.id))}
-            >
-              Copy payment ID
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+
+            <DropdownMenuItem asChild>
+              <Link href={`/dashboard/students/${payment.id}`}>Details</Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem asChild>
+              <Link href={`/dashboard/students/${payment.id}/edit`}>Edit</Link>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="text-green-500">Edit</DropdownMenuItem>
-            <DropdownMenuItem>Details</DropdownMenuItem>
+
+            {/* Confirm dialog + server action */}
+            <DropdownMenuItem asChild>
+              
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );

@@ -43,34 +43,6 @@ export async function listClassesTeachersSubjects() {
   };
 }
 
-// export async function listTeachers() {
-//   const [classes, teachers] = await Promise.all([
-//     prisma.class.findMany({ select: { id: true, name: true }, orderBy: { name: "asc" } }),
-//     prisma.teacher.findMany({
-//       select: { id: true, firstname: true, lastname: true },
-//       orderBy: [{ firstname: "asc" }, { lastname: "asc" }],
-//     }),
-//   ]);
-//   return {
-//     classes,
-//     teachers: teachers.map(t => ({ id: t.id, name: `${t.firstname} ${t.lastname}` })),
-//   };
-// }
-
-// export async function listClass() {
-//   const [classes, teachers] = await Promise.all([
-//     prisma.class.findMany({ select: { id: true, name: true }, orderBy: { name: "asc" } }),
-//     prisma.teacher.findMany({
-//       select: { id: true, firstname: true, lastname: true },
-//       orderBy: [{ firstname: "asc" }, { lastname: "asc" }],
-//     }),
-//   ]);
-//   return {
-//     classes,
-//     teachers: teachers.map(t => ({ id: t.id, name: `${t.firstname} ${t.lastname}` })),
-//   };
-// }
-
 export async function getStudentById(id: number) {
   const student = await prisma.student.findUnique({
     where: { id },
@@ -114,7 +86,7 @@ export async function updateStudent(data: StudentUpdateSchema) {
       ...rest,
       classId: rest.classId ?? null,
       teacherId: rest.teacherId ?? null,
-
+      subjectId: rest.subjectId ?? null,
     },
   });
 
@@ -122,6 +94,8 @@ export async function updateStudent(data: StudentUpdateSchema) {
   revalidatePath("/dashboard/students");
   redirect(`/dashboard/students/${id}`);
 }
+
+
 
 export async function createTeacher(data: TeacherSchema) {
   const parsed = teacherSchema.safeParse(data);
